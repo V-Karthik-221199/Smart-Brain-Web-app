@@ -76,7 +76,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-      fetch('http://localhost:3000/imageurl', {
+      fetch('https://rocky-temple-34571.herokuapp.com/imageurl', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -86,7 +86,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('http://localhost:3000/image', {
+          fetch('https://rocky-temple-34571.herokuapp.com/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -121,6 +121,7 @@ class App extends Component {
          <Particles className='particles'
           params={particlesOptions}
         />
+
         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
         { route === 'home'
           ? <div>
@@ -137,8 +138,14 @@ class App extends Component {
             </div>
           : (
              route === 'signin'
-             ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-             : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+             ? (<div className="cont">
+                 <Logo />
+                 <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                </div>)
+             : (<div className="cont">
+                 <Logo /> 
+                 <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                 </div>)
             )
         }
       </div>
